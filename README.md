@@ -1,4 +1,5 @@
 # 简介
+    自2017年10月在唯品会DBA内部使用后， 暂没发现有重大的bug, 有任何的bug或者使用反馈， 欢迎联系laijunshou@gmail.com.
     binlog_inspector通过解释mysql/mariadb binlog/relaylog实现以下三大功能:
         1）flashback/闪回/回滚， 实现DML的回滚到任意时间或者位置。
             生成的SQL形式如下
@@ -354,6 +355,5 @@
             ./binlog_inspector --mode=file --wtype=rollback --mtype=mysql --threads=4 --host=127.0.0.1 --port=3306 --user=xxx --password=xxx --databases=db1,db2 --tables=tb1,tb2 --start-datetime='2017-09-28 13:00:00' --stop-datetime='2017-09-28 16:00:00' --min-columns --file-each-table --insert-rows=20 --keep-trx --big-trx-rows=100 --long-trx-seconds=10 --output-dir=/home/apps/tmp --table-columns tbs_all_def.json /apps/dbdata/mysqldata_3306/log/mysql-bin.000556
         *只生成DML报表:
             ./binlog_inspector --mode=file --wtype=stats --mtype=mysql --interval=20 --big-trx-rows=100 --long-trx-seconds=10 --output-dir=/home/apps/tmp mysql-bin.000556
-# 联系
-    感谢https://github.com/siddontang的binlog解释库， 感谢dropbox的sqlbuilder库， 没有他们的库就没有binlog_inspector.
-    自2017年10月在唯品会DBA内部使用后， 暂没发现有重大的bug, 有任何的bug或者使用反馈， 欢迎联系laijunshou@gmail.com.
+# 感谢
+    感谢https://github.com/siddontang的binlog解释库， 感谢dropbox的sqlbuilder库， 没有他们的库就没有binlog_inspector.
