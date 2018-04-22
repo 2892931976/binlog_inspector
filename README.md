@@ -1,5 +1,5 @@
 # 简介
-    binlog_inspector自2017年10月开发完第一个版本后， 一直在公司内部使用至今， 暂无发现有重大的bug， 
+    binlog_inspector自2017年10月开发完第一个版本后， 在唯品会内部使用至今， 暂无发现有重大的bug， 
     欢迎大家反馈laijunshou@gmail.com。 
     binlog_inspector通过解释mysql/mariadb binlog/relaylog实现以下三大功能：
     1）flashback/闪回/回滚， 实现DML的回滚到任意时间或者位置。
