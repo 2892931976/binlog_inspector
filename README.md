@@ -1,25 +1,22 @@
 # 简介
-    binlog_inspector自2017年10月开发完第一个版本后， 在唯品会内部使用至今， 暂无发现有重大的bug， 
-    欢迎大家反馈laijunshou@gmail.com。 
-    binlog_inspector通过解释mysql/mariadb binlog/relaylog实现以下三大功能：
-    1）flashback/闪回/回滚， 实现DML的回滚到任意时间或者位置。
-        生成的SQL形式如下
-        ```sql
-        begin
-        DELETE FROM `binlog_inspector`.`emp` WHERE `id`=1
-        # datetime=2017-10-23_00:14:28 database=binlog_inspector table=emp binlog=mysql-bin.000012 startpos=417 stoppos=575
-        commit
-        ```
-    2）前滚，把binlog/relaylog的DML解释成易读的SQL语句。
-        生成的SQL形式如下
-        ```sql
-        begin
-        # datetime=2017-10-23_00:14:28 database=binlog_inspector table=emp binlog=mysql-bin.000012 startpos=417 stoppos=575
-        INSERT INTO `binlog_inspector`.`emp` (`id`,`name`,`sr`,`icon`,`points`,`sa`,`sex`) VALUES (1,'张三1','华南理工大学&SCUT',X'89504e47',1.1,1.1,1)
-        commit
-        ```
-    3）统计分析， 统计各个表的DML情况， 找出大事务与长事务。
-    
+    binlog_inspector通过解释mysql/mariadb binlog/relaylog实现以下三大功能:
+        1）flashback/闪回/回滚， 实现DML的回滚到任意时间或者位置。
+            生成的SQL形式如下
+            ```sql
+            begin
+            DELETE FROM `binlog_inspector`.`emp` WHERE `id`=1
+            # datetime=2017-10-23_00:14:28 database=binlog_inspector table=emp binlog=mysql-bin.000012 startpos=417 stoppos=575
+            commit
+            ```
+        2）前滚，把binlog/relaylog的DML解释成易读的SQL语句。
+            生成的SQL形式如下
+            ```sql
+            begin
+            # datetime=2017-10-23_00:14:28 database=binlog_inspector table=emp binlog=mysql-bin.000012 startpos=417 stoppos=575
+            INSERT INTO `binlog_inspector`.`emp` (`id`,`name`,`sr`,`icon`,`points`,`sa`,`sex`) VALUES (1,'张三1','华南理工大学&SCUT',X'89504e47',1.1,1.1,1)
+            commit
+            ```
+        3）统计分析， 统计各个表的DML情况， 找出大事务与长事务。   
 ![DML统计](https://github.com/GoDannyLai/binlog_inspector/raw/master/misc/img/dml_report.png)
 ![大事务与长事务](https://github.com/GoDannyLai/binlog_inspector/raw/master/misc/img/long_big_trx.png)
         
@@ -357,3 +354,6 @@
             ./binlog_inspector --mode=file --wtype=rollback --mtype=mysql --threads=4 --host=127.0.0.1 --port=3306 --user=xxx --password=xxx --databases=db1,db2 --tables=tb1,tb2 --start-datetime='2017-09-28 13:00:00' --stop-datetime='2017-09-28 16:00:00' --min-columns --file-each-table --insert-rows=20 --keep-trx --big-trx-rows=100 --long-trx-seconds=10 --output-dir=/home/apps/tmp --table-columns tbs_all_def.json /apps/dbdata/mysqldata_3306/log/mysql-bin.000556
         *只生成DML报表:
             ./binlog_inspector --mode=file --wtype=stats --mtype=mysql --interval=20 --big-trx-rows=100 --long-trx-seconds=10 --output-dir=/home/apps/tmp mysql-bin.000556
+# 联系
+    感谢https://github.com/siddontang的binlog解释库， 感谢dropbox的sqlbuilder库， 没有他们的库就没有binlog_inspector.
+    自2017年10月在唯品会DBA内部使用后， 暂没发现有重大的bug, 有任何的bug或者使用反馈， 欢迎联系laijunshou@gmail.com.
